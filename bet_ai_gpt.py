@@ -91,12 +91,12 @@ their previous games, guess the scores? I don't need any explanation. Follow thi
                 ai_message = response['text']
                 teams = ai_message.split(":")[0]
                 actual_teams = teams.split(" vs ")
-                actual_teams
-                teams_reversed = f'{actual_teams[1]} vs {actual_teams[0]}'
-                for msg in st.session_state.messages:
-                    if (teams in msg or teams_reversed in msg):
-                        ai_message = f'Remember I earlier predicted this? {msg}'
-                        break
+                if len(actual_teams) > 1:
+                    teams_reversed = f'{actual_teams[1]} vs {actual_teams[0]}'
+                    for msg in st.session_state.messages:
+                        if (teams in msg or teams_reversed in msg):
+                            ai_message = f'Remember I earlier predicted this? {msg}'
+                            break
 
         st.session_state.messages.append(human_message)
         st.session_state.messages.append(ai_message)
